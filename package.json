@@ -1,0 +1,16 @@
+{
+  "name": "haunted-server",
+  "version": "1.0.0",
+  "description": "The game server for the haunted game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "The K-State CIS 580 class",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
+}
