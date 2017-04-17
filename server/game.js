@@ -50,6 +50,7 @@ class Game {
     this.players = []
     this.chatLog = []
     this.updateChat = false
+    this.available = true
   }
 
   addPlayer (player) {
