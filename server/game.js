@@ -42,8 +42,8 @@ const serverTag = '<span style="color: red"><b>Server </b></span>';
 
 
 class Game {
-  constructor (gameIndex, io, name, roomGraph) {
-    this.gameIndex = gameIndex
+  constructor (id, io, name, roomGraph) {
+    this.id = id
     this.io = io
     this.name = name
     this.roomGraph = roomGraph
@@ -60,17 +60,17 @@ class Game {
   handleChat () {
     for (let player of this.players) {
       // join the room
-      player.socket.join(this.gameIndex)
+      player.socket.join(this.id)
 
       // Handle chat messages sent by players
       player.socket.on('newChatMsg', (msg) => {
-        this.io.to(this.gameIndex).emit('updateChatLog', `${player.tag} : ${msg}`)
+        this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
       })
     }
   }
 
   updateChat () {
-    this.io.to(this.gameIndex).emit('updateChatLog', `${serverTag} : Game has begun!`)
+    this.io.to(this.id).emit('updateChatLog', `${serverTag} : Game has begun!`)
     console.log('The game has begun!')
   }
 }

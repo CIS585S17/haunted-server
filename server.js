@@ -14,27 +14,33 @@ const roomFileNames = require('./server/room-files.json')
 // let graph = new RoomGraph(roomFileNames)
 
 // Server starts listening on port 5000
-server.listen('3000', () => {
-  console.log('Listening at http://localhost:3000')
+server.listen('5000', () => {
+  console.log('Listening at http://cslinux.cs.ksu.edu:5000')
 })
 
 // Handles a player connection
 io.on('connection', function (socket) {
   console.log('A user connected')
-  function availableGames (game) {
-    return games.available
-    // if (game.available) {
-      // return {
-      //   gameIndex: game.gameIndex,
-      //   name: game.name
-      // }
-    // }
+
+  function getGames () {
+    let avGames = []
+    for (let game of games) {
+      if (game.available) {
+        avGames.push({
+          id: game.id,
+          available: game.available,
+          name: game.name
+        })
+      }
+    }
+    return avGames
   }
-  for (let game of games) {
-    console.log('start', game.available)
-  }
-  console.log(games.filter(availableGames))
-  socket.emit('get-games', games.filter(availableGames))
+
+  // socket.on('get', (msg) => {
+    let avGames = getGames()
+    console.log(avGames)
+    socket.emit('get-games', avGames)
+  // })
 
   // Add event handlers
   socket.on('join', (data) => {
@@ -45,9 +51,5 @@ io.on('connection', function (socket) {
   socket.on('host-game', (name) => {
     games.push(new Game(games.length, io, name, new RoomGraph(roomFileNames)))
     games[games.length - 1].addPlayer(new Player(1, socket))
-    socket.emit('get-games', games.filter(availableGames))
-    for (let game of games) {
-      console.log('host', game.available)
-    }
   })
 })
