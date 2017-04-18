@@ -14,8 +14,8 @@ const roomFileNames = require('./server/room-files.json')
 // let graph = new RoomGraph(roomFileNames)
 
 // Server starts listening on port 5000
-server.listen('5000', () => {
-  console.log('Listening at http://cslinux.cs.ksu.edu:5000')
+server.listen('5454', () => {
+  console.log('Listening at http://cslinux.cs.ksu.edu:5454')
 })
 
 // Handles a player connection
@@ -43,9 +43,9 @@ io.on('connection', function (socket) {
   // })
 
   // Add event handlers
-  socket.on('join', (data) => {
-    games[data.gameIndex].addPlayer(new Player(2, socket))
-    games[data.gameIndex].available = false
+  socket.on('join', (id) => {
+    games[id].addPlayer(new Player(2, socket))
+    games[id].available = false
   })
 
   socket.on('host-game', (name) => {
