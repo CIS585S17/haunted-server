@@ -46,6 +46,7 @@ io.on('connection', function (socket) {
   socket.on('join', (id) => {
     games[id].addPlayer(new Player(2, socket))
     games[id].available = false
+    games[id].startGame()
   })
 
   socket.on('host-game', (name) => {

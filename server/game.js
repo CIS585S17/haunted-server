@@ -69,6 +69,15 @@ class Game {
     }
   }
 
+  startGame () {
+    for (let player of this.players) {
+      // join the game
+      player.socket.join(this.id)
+
+      this.io.to(this.id).emit('start-game', true)
+    }
+  }
+
   updateChat () {
     this.io.to(this.id).emit('updateChatLog', `${serverTag} : Game has begun!`)
     console.log('The game has begun!')
