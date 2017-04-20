@@ -36,11 +36,11 @@ io.on('connection', function (socket) {
     return avGames
   }
 
-  // socket.on('get', (msg) => {
+  socket.on('get', (msg) => {
     let avGames = getGames()
     console.log(avGames)
     socket.emit('get-games', avGames)
-  // })
+  })
 
   // Add event handlers
   socket.on('join', (id) => {
