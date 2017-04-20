@@ -23,6 +23,7 @@ class Player {
     this.id = id
     this.socket = socket
     this.tag = `<span style="color: royalblue">Player ${this.id}</span>`
+    this.charID = null
   }
 
   joinGame () {
