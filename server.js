@@ -14,8 +14,8 @@ const roomFileNames = require('./server/room-files.json')
 // let graph = new RoomGraph(roomFileNames)
 
 // Server starts listening on port 5000
-server.listen('5454', () => {
-  console.log('Listening at http://cslinux.cs.ksu.edu:5454')
+server.listen('5333', () => {
+  console.log('Listening at http://cslinux.cs.ksu.edu:5333')
 })
 
 // Handles a player connection
@@ -37,6 +37,7 @@ io.on('connection', function (socket) {
   }
 
   socket.on('get', (msg) => {
+    console.log('getGames')
     let avGames = getGames()
     console.log(avGames)
     socket.emit('get-games', avGames)
