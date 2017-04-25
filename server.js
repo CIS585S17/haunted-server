@@ -15,7 +15,7 @@ const roomFileNames = require('./server/room-files.json')
 
 // Server starts listening on port 5000
 server.listen('5333', () => {
-  console.log('Listening at http://cslinux.cs.ksu.edu:5333')
+  console.log('Listening at https://haunted-server.herokuapp.com/:5333')
 })
 
 // Handles a player connection
