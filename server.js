@@ -54,4 +54,8 @@ io.on('connection', function (socket) {
     games.push(new Game(games.length, io, name, new RoomGraph(roomFileNames)))
     games[games.length - 1].addPlayer(new Player(1, socket))
   })
+
+  socket.on('error', (error) => {
+    console.log(error)
+  })
 })
