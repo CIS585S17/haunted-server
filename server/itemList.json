@@ -2,14 +2,24 @@
     "id": 0,
     "name": "Something",
     "desc": "this is a tester",
+    "consumable": true,
+    "onUse": {
+        "powerStats": 3,
+        "speedStats": 3,
+        "sanityStats": -3,
+    },
     "passives": {
         "powerStats": -1,
         "sanityStats": 2 
     }
 }, {
-    "id": 0,
+    "id": 1,
     "name": "SomethingImportant",
-    "desc": "So i this one, but with a bigger ego",
+    "desc": "So I this one, but with a bigger ego",
+    "consumable": false,
+    "onUse": {
+        
+    },
     "passives": {
         "powerStats": 3,
         "speedStats": 3,
