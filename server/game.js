@@ -57,9 +57,9 @@ class Game {
     this.players.push(player)
   }
 
-  handleChat () {
+  startGame () {
     for (let player of this.players) {
-      // join the room
+      // join the game
       player.socket.join(this.id)
 
       // Handle chat messages sent by players
@@ -67,20 +67,7 @@ class Game {
         this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
       })
     }
-  }
-
-  startGame () {
-    for (let player of this.players) {
-      // join the game
-      player.socket.join(this.id)
-
-      this.io.to(this.id).emit('start-game', true)
-    }
-  }
-
-  updateChat () {
-    this.io.to(this.id).emit('updateChatLog', `${serverTag} : Game has begun!`)
-    console.log('The game has begun!')
+    this.io.to(this.id).emit('start-game', true)
   }
 }
 
