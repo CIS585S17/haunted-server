@@ -5,6 +5,7 @@ const io = require('socket.io')(server)
 const {Game} = require('./server/game')
 const {Player} = require('./server/player')
 const {RoomGraph} = require('./server/room')
+const {Character} = require('./server/character')
 const roomFileNames = require('./server/room-files.json')
 
 // var lookingForGame = []

@@ -23,13 +23,42 @@ class Player {
     this.id = id
     this.socket = socket
     this.tag = `<span style="color: royalblue">Player ${this.id}</span>`
+    this.charID = null
+    this.inventory = []
+    this.powIndex = 3
+    this.spdIndex = 3
+    this.sanIndex = 3
   }
 
-  joinGame () {
+  joinGame () {}
 
-  }
+  setCharacter() {}
 
   update () {
+    // Update stats of current player
+  }
+  
+  incrementPowStat() {
+
+  }
+
+  incrementSpdStat() {
+
+  }
+
+  incrementSanStat() {
+
+  }
+
+  decrementPowStat() {
+
+  }
+
+  decrementSpdStat() {
+
+  }
+
+  decrementSanStat() {
 
   }
 }
@@ -37,3 +66,4 @@ class Player {
 module.exports = {
   Player: Player
 }
+

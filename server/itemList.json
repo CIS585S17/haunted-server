@@ -1,0 +1,18 @@
+[{
+    "id": 0,
+    "name": "Something",
+    "desc": "this is a tester",
+    "passives": {
+        "powerStats": -1,
+        "sanityStats": 2 
+    }
+}, {
+    "id": 0,
+    "name": "SomethingImportant",
+    "desc": "So i this one, but with a bigger ego",
+    "passives": {
+        "powerStats": 3,
+        "speedStats": 3,
+        "sanityStats": 3 
+    }
+}]
