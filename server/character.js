@@ -7,32 +7,17 @@ class Character {
     this.powerStats = roster[id].powerStats
     this.speedStats = roster[id].speedStats
     this.sanityStats = roster[id].sanityStats
-    this.powIndex = 3
-    this.spdIndex = 3
-    this.sanIndex = 3
   }
 
-  getPowerStat() {
+  getPowerStat(index) {
     return this.powerStats[this.powIndex]
   }
 
-  getSpeedStat() {
+  getSpeedStat(index) {
     return this.speedStats[this.spdIndex]
   }
 
-  getSanityStat() {
+  getSanityStat(index) {
     return this.sanityStats[this.sanIndex]
   }
-
-  incrementPowStat() {}
-
-  incrementSpdStat() {}
-
-  incrementSanStat() {}
-
-  decrementPowStat() {}
-
-  decrementSpdStat() {}
-
-  decrementSanStat() {}
 }
