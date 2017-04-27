@@ -14,7 +14,7 @@ const roomFileNames = require('./server/room-files.json')
 // let graph = new RoomGraph(roomFileNames)
 
 // Server starts listening on port 5000
-server.listen(80, () => {
+server.listen((process.env.PORT || 5000), () => {
   console.log('Listening at https://haunted-server.herokuapp.com')
 })
 
