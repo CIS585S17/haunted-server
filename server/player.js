@@ -24,14 +24,15 @@ class Player {
     this.socket = socket
     this.tag = `<span style="color: royalblue">Player ${this.id}</span>`
     this.charID = null
+    this.inventory = []
   }
 
-  joinGame () {
+  joinGame () {}
 
-  }
+  setCharacter() {}
 
   update () {
-
+    // Update stats of current player
   }
 }
 
