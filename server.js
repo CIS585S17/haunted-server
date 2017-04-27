@@ -1,28 +1,35 @@
 
-var http = require('http')
-var server = http.createServer()
-var io = require('socket.io')(server)
-
-var lookingForGame = []
-var games = []
-// let availableGames = []
-
+const http = require('http')
+const server = http.createServer()
+const io = require('socket.io')(server)
 const {Game} = require('./server/game')
 const {Player} = require('./server/player')
 const {RoomGraph} = require('./server/room')
 const {Character} = require('./server/character')
 const roomFileNames = require('./server/room-files.json')
-// let graph = new RoomGraph(roomFileNames)
+
+// var lookingForGame = []
+let games = []
+// let availableGames = []
+
+
 
 // Server starts listening on port 5000
-server.listen('5454', () => {
-  console.log('Listening at http://cslinux.cs.ksu.edu:5454')
+server.listen((process.env.PORT || 5000), () => {
+  console.log('Listening at https://haunted-server.herokuapp.com')
 })
 
 // Handles a player connection
 io.on('connection', function (socket) {
-  console.log('A user connected')
+  function UserException (message) {
+    this.message = message
+    this.name = 'UserException'
+  }
 
+  /**
+   * Function to get the current available games.
+   * @return The array of available games.
+   */
   function getGames () {
     let avGames = []
     for (let game of games) {
@@ -37,21 +44,63 @@ io.on('connection', function (socket) {
     return avGames
   }
 
+  /**
+   * Socket Event to handle server errors.
+   *
+   * @param {Error} error The error thrown from server
+   */
+  socket.on('error', (error) => {
+    console.log(error)
+  })
+
+  /**
+   * Socket Event to handle request to get the list
+   * of available games.
+   */
   socket.on('get', (msg) => {
     let avGames = getGames()
-    console.log(avGames)
     socket.emit('get-games', avGames)
   })
 
-  // Add event handlers
+  /**
+   * Socket Event to handle request to host/start a new game
+   * instance.
+   *
+   * @param {string} name The name of the game the player wants to join.
+   * @param {function} callback Error if game name already in use for a game instance.
+   */
+  socket.on('host-game', (name, callback) => {
+    let game = games.find((element) => {
+      return element.name === name
+    })
+    if (game) {
+      callback(new UserException('Name is already in use! Please try again.'))
+    } else {
+      games.push(new Game(games.length, io, name, new RoomGraph(roomFileNames)))
+      games[games.length - 1].addPlayer(new Player(1, socket))
+    }
+  })
+
+  /**
+   * Socket Event to handle request to join a game.
+   *
+   * @param {integer} id The identification number of game instance to join.
+   */
   socket.on('join', (id) => {
     games[id].addPlayer(new Player(2, socket))
     games[id].available = false
     games[id].startGame()
   })
 
-  socket.on('host-game', (name) => {
-    games.push(new Game(games.length, io, name, new RoomGraph(roomFileNames)))
-    games[games.length - 1].addPlayer(new Player(1, socket))
-  })
+  // /**
+  //  * Socket Event to handle request to exit the game instance.
+  //  *
+  //  * @param {integer} id The identification number of the game to leave
+  //  */
+  // socket.on('quit-game', (id) => {
+  //   let index = games.findIndex((element) => {
+  //     return element.id === id
+  //   })
+  //   games.splice(index, 1)
+  // })
 })
