@@ -87,9 +87,12 @@ io.on('connection', function (socket) {
    * @param {integer} id The identification number of game instance to join.
    */
   socket.on('join', (id) => {
-    games[id].addPlayer(new Player(2, socket))
-    games[id].available = false
-    games[id].startGame()
+    let game = games.find((element) => {
+      return element.id === id
+    })
+    game.addPlayer(new Player(2, socket))
+    game.available = false
+    game.startGame()
   })
 
   // /**
@@ -103,4 +106,11 @@ io.on('connection', function (socket) {
   //   })
   //   games.splice(index, 1)
   // })
+
+  socket.on('select-character', (gameId, characterId) => {
+    let game = games.find((element) => {
+      return element.id === gameId
+    })
+    game.selectCharacter(characterId)
+  })
 })
