@@ -57,7 +57,9 @@ class Game {
 
   addPlayer (player) {
     this.players.push(player)
-    player.socket.emit('character-list', this.characters.characters)
+    player.socket.on('get-characters', () => {
+      player.socket.emit('available-character', this.characters.characters)
+    })
     player.socket.on('select-character', (id) => {
       player.setCharacter(id)
       this.characters.removeCharacter(id)
