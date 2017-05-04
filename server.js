@@ -5,8 +5,13 @@ const io = require('socket.io')(server)
 const {Game} = require('./server/game')
 const {Player} = require('./server/player')
 const {RoomGraph} = require('./server/room')
-const {Character} = require('./server/character')
+const {CharacterBuilder} = require('./server/character')
+const {ItemBuilder} = require('./server/item')
 const roomFileNames = require('./server/room-files.json')
+const roster = require('./server/charStats.json')
+const itemList = require('./server/itemList.json')
+
+
 
 // var lookingForGame = []
 let games = []
@@ -76,7 +81,14 @@ io.on('connection', function (socket) {
     if (game) {
       callback(new UserException('Name is already in use! Please try again.'))
     } else {
-      games.push(new Game(games.length, io, name, new RoomGraph(roomFileNames)))
+      games.push(new Game(
+        new CharacterBuilder(roster),
+        games.length,
+        io,
+        new ItemBuilder(itemList),
+        name,
+        new RoomGraph(roomFileNames)
+      ))
       games[games.length - 1].addPlayer(new Player(1, socket))
     }
   })
@@ -107,10 +119,10 @@ io.on('connection', function (socket) {
   //   games.splice(index, 1)
   // })
 
-  socket.on('select-character', (gameId, characterId) => {
-    let game = games.find((element) => {
-      return element.id === gameId
-    })
-    game.selectCharacter(characterId)
-  })
+  // socket.on('select-character', (gameId, characterId) => {
+  //   let game = games.find((element) => {
+  //     return element.id === gameId
+  //   })
+  //   game.selectCharacter(characterId)
+  // })
 })

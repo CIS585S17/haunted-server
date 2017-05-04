@@ -42,10 +42,11 @@ const serverTag = '<span style="color: red"><b>Server </b></span>';
 
 
 class Game {
-  constructor (characters, id, io, name, roomGraph) {
+  constructor (characters, id, io, items, name, roomGraph) {
     this.characters = characters
     this.id = id
     this.io = io
+    this.items = items
     this.name = name
     this.roomGraph = roomGraph
     this.players = []
@@ -56,22 +57,12 @@ class Game {
 
   addPlayer (player) {
     this.players.push(player)
-
+    player.socket.emit('character-list', this.characters.characters)
     player.socket.on('select-character', (id) => {
-
+      player.setCharacter(id)
+      this.characters.removeCharacter(id)
     })
   }
-
-  deselectCharacter (id) {
-    this.characters.push(id)
-  }
-
-  // selectCharacter (id) {
-  //   let index = this.characters.findIndex((element) => {
-  //     return element.id === id
-  //   })
-  //   this.characters.splice(index, 1)
-  // }
 
   startGame () {
     for (let player of this.players) {

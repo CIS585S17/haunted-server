@@ -6,7 +6,7 @@
     "onUse": {
         "powerStats": 3,
         "speedStats": 3,
-        "sanityStats": -3,
+        "sanityStats": -3
     },
     "passives": {
         "powerStats": -1,
