@@ -81,6 +81,7 @@ io.on('connection', function (socket) {
     if (game) {
       callback(new UserException('Name is already in use! Please try again.'))
     } else {
+      callback(null)
       games.push(new Game(
         new CharacterBuilder(roster),
         games.length,
