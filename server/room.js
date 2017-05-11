@@ -117,6 +117,7 @@ class RoomGraph {
     this.rooms = []
     this.createFoyer()
     this.createRooms(roomFileNames)
+    this.connectRooms()
   }
 
   /**
@@ -177,7 +178,17 @@ class RoomGraph {
       this.rooms.push(new Room(name, filename))
     }
   }
-
+    
+    /**
+    * Randomly connect the room nodes to form a connected graph
+    */
+  connectRooms() {
+      for (var i = 0; i < this.rooms.length; i++)
+      {
+          var randRoomIndex = Math.floor(Math.random() * this.rooms.length)  
+          this.addEdges(this.rooms[i], this.rooms[randRoomIndex])
+      }
+  }
   /**
    * Adds player to a room
    * @param {Player} player A player in the game to be added to a room
