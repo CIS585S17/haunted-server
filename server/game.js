@@ -61,10 +61,21 @@ class Game {
       // player.socket.emit('available-characters', this.characters.characters)
       callback(this.characters.characters)
     })
-    player.socket.on('select-character', (id) => {
-      player.setCharacter(id)
-      this.characters.removeCharacter(id)
+    // player.socket.on('select-character', (id, callback) => {
+    //   player.setCharacter(id)
+    //   this.characters.removeCharacter(id)
+    //   callback(this.characters.characters)
+    // })
+    player.socket.on('select-character', (id, callback) => {
+      // player.setCharacter(id)
+      let selectedCharacter = this.characters.removeCharacter(id)
+      player.setCharacter(selectedCharacter[0])
+      callback(this.characters.characters, selectedCharacter[0])
     })
+  }
+
+  selectCharacters () {
+    this.io.to(this.id).emit('selected-characters', this.characters.characters)
   }
 
   startGame () {
@@ -77,7 +88,10 @@ class Game {
         this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
       })
     }
-    this.io.to(this.id).emit('start-game', true)
+    this.selectCharacters()
+    if (this.characters.characters.length === 0) {
+      this.io.to(this.id).emit('start-game', true)
+    }
   }
 }
 
