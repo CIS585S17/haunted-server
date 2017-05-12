@@ -105,7 +105,7 @@ io.on('connection', function (socket) {
     })
     game.addPlayer(new Player(2, socket))
     game.available = false
-    // game.startGame()
+    game.startGame()
   })
 
   // /**
