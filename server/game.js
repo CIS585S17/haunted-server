@@ -5,7 +5,7 @@
 
 // const Player = require('./player.js');
 
-const serverTag = '<span style="color: red"><b>Server </b></span>';
+const serverTag = '<span style="color: red"><b>Server </b></span>'
 
 // function Game(io, sockets, room) {
 //     this.io = io;
@@ -39,7 +39,6 @@ const serverTag = '<span style="color: red"><b>Server </b></span>';
 // {
 
 // }
-
 
 class Game {
   constructor (characters, id, io, items, name, roomGraph) {
@@ -81,47 +80,45 @@ class Game {
   startGame () {
     for (let player of this.players) {
       // join the game
-          player.socket.join(this.id)
+      player.socket.join(this.id)
 
       // Handle chat messages sent by players
-          player.socket.on('newChatMsg', (msg) => {
-              this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
-          })
+      player.socket.on('newChatMsg', (msg) => {
+        this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
+      })
 
       /**
       * Socket Event to handle requests for a player entering a different room
       */
-          player.socket.on('room-request', (direction, callback)  => {
-              console.log('hurr')
-              for (var i = 0; i < this.roomGraph.rooms.length; i++) {                
-                  // Check which door the user is planning on using
-                  if (direction == 'forward' && i != player.prevRoomIndex) {
-                      // Find a connecting room
-                      for (var j = 0; j < this.roomGraph.rooms[i].length; j++) {
-                          if (this.roomGraph.rooms[i].name == this.roomGraph.rooms[i].edges[j]){ 
-                              player.prevRoomIndex = currRoomIndex
-                              player.currRoomIndex = i
-                              break
-                          }
-                      }
-                      break
-                  }
-                  else if (i == player.prevRoomIndex) {
-                      var ind = player.prevRoomIndex
-                      player.prevRoomIndex = player.currRoomIndex
-                      player.currRoomIndex = ind
-                      
-                      break
-                  }
+      player.socket.on('room-request', (direction, callback) => {
+        console.log('hurr')
+        for (var i = 0; i < this.roomGraph.rooms.length; i++) {
+          // Check which door the user is planning on using
+          if (direction === 'forward' && i !== player.prevRoomIndex) {
+            // Find a connecting room
+            for (var j = 0; j < this.roomGraph.rooms[i].length; j++) {
+              if (this.roomGraph.rooms[i].name === this.roomGraph.rooms[i].edges[j]) {
+                player.prevRoomIndex = player.currRoomIndex
+                player.currRoomIndex = i
+                break
               }
-              console.log(this.roomGraph.rooms[player.currRoomIndex].path)
-              callback(this.roomGraph.rooms[player.currRoomIndex])
-              //player.socket.emit('room-return', this.roomGraph.rooms[player.currRoomIndex])
-          })
-      }
-      this.io.to(this.id).emit('start-game', true)
-  }
+            }
+            break
+          } else if (i === player.prevRoomIndex) {
+            var ind = player.prevRoomIndex
+            player.prevRoomIndex = player.currRoomIndex
+            player.currRoomIndex = ind
 
+            break
+          }
+        }
+        console.log(this.roomGraph.rooms[player.currRoomIndex].path)
+        callback(this.roomGraph.rooms[player.currRoomIndex])
+              // player.socket.emit('room-return', this.roomGraph.rooms[player.currRoomIndex])
+      })
+    }
+    this.io.to(this.id).emit('start-game', true)
+  }
 }
 
 module.exports = {
