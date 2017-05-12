@@ -20,7 +20,9 @@
 
 class Player {
   constructor (id, socket) {
-    this.id = id
+      this.id = id
+      this.currRoomindex = 0
+      this.prevRoomindex = -1
     this.socket = socket
     this.tag = `<span style="color: royalblue">Player ${this.id}</span>`
     this.charID = undefined
@@ -64,6 +66,7 @@ class Player {
 
   }
 }
+
 
 module.exports = {
   Player: Player
