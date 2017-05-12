@@ -92,15 +92,15 @@ class Game {
       * Socket Event to handle requests for a player entering a different room
       */
           player.socket.on('room-request', (direction, callback)  => {
-
+              console.log('hurr')
               for (var i = 0; i < this.roomGraph.rooms.length; i++) {                
                   // Check which door the user is planning on using
-                  if (direction == 'forward' && i != player.prevRoomindex) {
+                  if (direction == 'forward' && i != player.prevRoomIndex) {
                       // Find a connecting room
                       for (var j = 0; j < this.roomGraph.rooms[i].length; j++) {
                           if (this.roomGraph.rooms[i].name == this.roomGraph.rooms[i].edges[j]){ 
                               player.prevRoomIndex = currRoomIndex
-                              player.currRoomindex = i
+                              player.currRoomIndex = i
                               break
                           }
                       }
@@ -114,8 +114,8 @@ class Game {
                       break
                   }
               }
-              //console.log(this.roomGraph.rooms[player.currRoomIndex].path)
-              callback(this.roomGraph.rooms[player.currRoomIndex].path)
+              console.log(this.roomGraph.rooms[player.currRoomIndex].path)
+              callback(this.roomGraph.rooms[player.currRoomIndex])
               //player.socket.emit('room-return', this.roomGraph.rooms[player.currRoomIndex])
           })
       }

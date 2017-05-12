@@ -22,7 +22,7 @@ class Player {
   constructor (id, socket) {
       this.id = id
       this.currRoomIndex = 0
-      this.prevRoomindex = -1
+      this.prevRoomIndex = -1
     this.socket = socket
     this.tag = `<span style="color: royalblue">Player ${this.id}</span>`
     this.character = undefined
