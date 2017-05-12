@@ -108,6 +108,13 @@ io.on('connection', function (socket) {
     // game.startGame()
   })
 
+  socket.on('start', (id) => {
+    let game = games.find((element) => {
+      return element.id === id
+    })
+    game.startGame()
+  })
+
   // /**
   //  * Socket Event to handle request to exit the game instance.
   //  *
