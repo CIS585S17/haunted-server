@@ -4,6 +4,7 @@
 
 class Character {
   constructor (id, powerStats, speedStats, sanityStats) {
+    this.available = true
     this.id = id
     this.powerStats = powerStats
     this.speedStats = speedStats
@@ -31,6 +32,13 @@ class CharacterBuilder {
     this.loadCharacters()
   }
 
+  addCharacter (id) {
+    let character = this.characters.find((element) => {
+      return element.id === id
+    })
+    character.available = true
+  }
+
   loadCharacters () {
     for (let character of this.roster) {
       this.characters.push(new Character(
@@ -47,6 +55,10 @@ class CharacterBuilder {
       return element.id === id
     })
     this.characters.splice(index, 1)
+    // let character = this.characters.find((element) => {
+    //   return element.id === id
+    // })
+    // character.available = false
   }
 }
 
