@@ -88,6 +88,7 @@ class Game {
         this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
       })
     }
+    this.selectCharacters()
     // this.io.to(this.id).emit('start-game', true)
   }
 }
