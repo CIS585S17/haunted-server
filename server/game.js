@@ -67,9 +67,10 @@ class Game {
     //   callback(this.characters.characters)
     // })
     player.socket.on('select-character', (id, callback) => {
-      player.setCharacter(id)
-      this.characters.removeCharacter(id)
-      callback(this.characters.characters)
+      // player.setCharacter(id)
+      let selectedCharacter = this.characters.removeCharacter(id)
+      player.setCharacter(selectedCharacter[0])
+      callback(this.characters.characters, selectedCharacter[0])
     })
   }
 

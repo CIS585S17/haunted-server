@@ -23,7 +23,7 @@ class Player {
     this.id = id
     this.socket = socket
     this.tag = `<span style="color: royalblue">Player ${this.id}</span>`
-    this.charID = undefined
+    this.character = undefined
     this.inventory = []
     this.powIndex = 3
     this.spdIndex = 3
@@ -32,8 +32,8 @@ class Player {
 
   joinGame () {}
 
-  setCharacter (id) {
-    this.charID = id
+  setCharacter (character) {
+    this.character = character
   }
 
   update () {

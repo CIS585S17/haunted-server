@@ -54,7 +54,8 @@ class CharacterBuilder {
     let index = this.characters.findIndex((element) => {
       return element.id === id
     })
-    this.characters.splice(index, 1)
+
+    return this.characters.splice(index, 1)
     // let character = this.characters.find((element) => {
     //   return element.id === id
     // })
