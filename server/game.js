@@ -114,7 +114,8 @@ class Game {
                       break
                   }
               }
-              callback(this.roomGraph.rooms[player.currRoomIndex])
+              console.log(this.roomGraph.rooms[player.currRoomIndex].name)
+              callback(this.roomGraph.rooms[player.currRoomIndex].name)
               //player.socket.emit('room-return', this.roomGraph.rooms[player.currRoomIndex])
           })
       }
