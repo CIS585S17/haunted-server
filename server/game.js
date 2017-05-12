@@ -116,8 +116,9 @@ class Game {
         callback(this.roomGraph.rooms[player.currRoomIndex])
               // player.socket.emit('room-return', this.roomGraph.rooms[player.currRoomIndex])
       })
+      this.io.to(this.id).emit('start-game', true)
     }
-    this.io.to(this.id).emit('start-game', true)
+    // this.io.to(this.id).emit('start-game', true)
   }
 }
 

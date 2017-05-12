@@ -109,6 +109,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('start', (id) => {
+    console.log(id)
     let game = games.find((element) => {
       return element.id === id
     })
