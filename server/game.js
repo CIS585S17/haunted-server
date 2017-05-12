@@ -89,7 +89,9 @@ class Game {
       })
     }
     this.selectCharacters()
-    // this.io.to(this.id).emit('start-game', true)
+    if (this.characters.characters.length === 0) {
+      this.io.to(this.id).emit('start-game', true)
+    }
   }
 }
 
