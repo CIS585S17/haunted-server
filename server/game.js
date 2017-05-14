@@ -90,32 +90,32 @@ class Game {
       /**
       * Socket Event to handle requests for a player entering a different room
       */
-      player.socket.on('room-request', (direction, callback) => {
-        console.log('hurr')
-        for (var i = 0; i < this.roomGraph.rooms.length; i++) {
-          // Check which door the user is planning on using
-          if (direction === 'forward' && i !== player.prevRoomIndex) {
-            // Find a connecting room
-            for (var j = 0; j < this.roomGraph.rooms[i].length; j++) {
-              if (this.roomGraph.rooms[i].name === this.roomGraph.rooms[i].edges[j]) {
-                player.prevRoomIndex = player.currRoomIndex
-                player.currRoomIndex = i
-                break
-              }
-            }
-            break
-          } else if (i === player.prevRoomIndex) {
-            var ind = player.prevRoomIndex
-            player.prevRoomIndex = player.currRoomIndex
-            player.currRoomIndex = ind
+      // player.socket.on('room-request', (direction, callback) => {
+      //   console.log('hurr')
+      //   for (var i = 0; i < this.roomGraph.rooms.length; i++) {
+      //     // Check which door the user is planning on using
+      //     if (direction === 'forward' && i !== player.prevRoomIndex) {
+      //       // Find a connecting room
+      //       for (var j = 0; j < this.roomGraph.rooms[i].length; j++) {
+      //         if (this.roomGraph.rooms[i].name === this.roomGraph.rooms[i].edges[j]) {
+      //           player.prevRoomIndex = player.currRoomIndex
+      //           player.currRoomIndex = i
+      //           break
+      //         }
+      //       }
+      //       break
+      //     } else if (i === player.prevRoomIndex) {
+      //       var ind = player.prevRoomIndex
+      //       player.prevRoomIndex = player.currRoomIndex
+      //       player.currRoomIndex = ind
 
-            break
-          }
-        }
-        console.log(this.roomGraph.rooms[player.currRoomIndex].path)
-        callback(this.roomGraph.rooms[player.currRoomIndex])
+      //       break
+      //     }
+      //   }
+      //   console.log(this.roomGraph.rooms[player.currRoomIndex].path)
+      //   callback(this.roomGraph.rooms[player.currRoomIndex])
               // player.socket.emit('room-return', this.roomGraph.rooms[player.currRoomIndex])
-      })
+      // })
       this.io.to(this.id).emit('start-game', true)
     }
     // this.io.to(this.id).emit('start-game', true)
