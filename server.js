@@ -126,16 +126,16 @@ io.on('connection', function (socket) {
   /**
    * Remove player from array of players in this game instance
    */
-  socket.on('leave-game', (gameID, playerID) => {
-    socket.leave(gameID)
-    let game = games.find((element) => {
-      return element.id === gameID
-    })
-    let index = game.players.findIndex((element) => {
-      return element.id === playerID
-    })
-    game.players.splice(index, 1)
-  })
+  // socket.on('leave-game', (gameID, playerID) => {
+  //   socket.leave(gameID)
+  //   let game = games.find((element) => {
+  //     return element.id === gameID
+  //   })
+  //   let index = game.players.findIndex((element) => {
+  //     return element.id === playerID
+  //   })
+  //   game.players.splice(index, 1)
+  // })
 
   // /**
   //  * Socket Event to handle request to exit the game instance.
