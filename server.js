@@ -31,6 +31,12 @@ io.on('connection', function (socket) {
     this.name = 'UserException'
   }
 
+  for (let i = 0; i < games.length; i++) {
+    if (games[i].players.length === 0) {
+      games.splice(i, 1)
+    }
+  }
+
   /**
    * Function to get the current available games.
    * @return The array of available games.

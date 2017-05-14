@@ -87,6 +87,13 @@ class Game {
         this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
       })
 
+      player.socket.on('leave-game', (id) => {
+        let index = this.players.findIndex((element) => {
+          return element.id === id
+        })
+        this.players.splice(index, 1)
+      })
+
       /**
       * Socket Event to handle requests for a player entering a different room
       */
