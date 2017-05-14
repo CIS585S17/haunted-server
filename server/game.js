@@ -91,6 +91,7 @@ class Game {
        * Remove player from array of players in this game instance
        */
       player.socket.on('leave-game', (id) => {
+        player.socket.leave(this.id)
         let index = this.players.findIndex((element) => {
           return element.id === id
         })
