@@ -87,6 +87,9 @@ class Game {
         this.io.to(this.id).emit('updateChatLog', `${player.tag} : ${msg}`)
       })
 
+      /**
+       * Remove player from array of players in this game instance
+       */
       player.socket.on('leave-game', (id) => {
         let index = this.players.findIndex((element) => {
           return element.id === id

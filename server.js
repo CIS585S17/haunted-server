@@ -85,9 +85,8 @@ io.on('connection', function (socket) {
       return element.name === name
     })
     if (game) {
-      callback(new UserException('Name is already in use! Please try again.'))
+      callback(new UserException('Name is already in use! Please try again.'), null)
     } else {
-      callback(null)
       games.push(new Game(
         new CharacterBuilder(roster),
         games.length,
@@ -97,6 +96,7 @@ io.on('connection', function (socket) {
         new RoomGraph(roomFileNames)
       ))
       games[games.length - 1].addPlayer(new Player(1, socket))
+      callback(null, 1)
     }
   })
 
@@ -105,13 +105,14 @@ io.on('connection', function (socket) {
    *
    * @param {integer} id The identification number of game instance to join.
    */
-  socket.on('join', (id) => {
+  socket.on('join', (id, callback) => {
     let game = games.find((element) => {
       return element.id === id
     })
     game.addPlayer(new Player(2, socket))
     game.available = false
     // game.startGame()
+    callback(null, 2)
   })
 
   socket.on('start', (id) => {
