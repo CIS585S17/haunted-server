@@ -129,7 +129,7 @@ io.on('connection', function (socket) {
   socket.on('leave-game', (gameID, playerID) => {
     socket.leave(gameID)
     let game = games.find((element) => {
-      return element.gameID === gameID
+      return element.id === gameID
     })
     let index = game.players.findIndex((element) => {
       return element.id === playerID
